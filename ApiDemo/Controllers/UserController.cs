@@ -2,11 +2,36 @@
 
 namespace ApiDemo.Controllers
 {
-    public class UserController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class UserController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly ILogger<UserController> _logger;
+
+        public UserController(ILogger<UserController> logger)
         {
-            return View();
+            _logger = logger;
+        }
+        [HttpGet]
+       public IActionResult Get()
+        {
+            List<User> users = new List<User>();
+            User u = new User()
+            {
+                Id = 1,
+                Name = "Test",
+                Password = "password",
+                Email = "a@a.com",
+                UserName = "Test"
+            };
+            users.Add(u);
+
+            return Ok(users);
         }
     }
+
+
+
+
+
 }
